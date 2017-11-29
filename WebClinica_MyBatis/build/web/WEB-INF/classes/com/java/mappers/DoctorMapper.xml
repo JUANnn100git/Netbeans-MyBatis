@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Doctor">
+    
+    <resultMap id="doctorResultMap" type="com.java.pojos.Doctor">
+        <id property="id" column="id" />
+        <result property="nombre" column="nombre"/>
+        <result property="ap_paterno" column="ap_paterno"/>
+        <result property="ap_materno" column="ap_materno"/>
+        <association property='especialidad' resultMap='especialidadResult'/>
+    </resultMap>
+    
+    <resultMap type='com.java.pojos.Especialidad' id='especialidadResult'>
+        <id property='id' column='e_id'/>
+        <result property='nombre' column='e_nombre'/>
+    </resultMap>
+
+    
+    <select id="list" resultMap="doctorResultMap">
+        Select d.*,
+        e.id e_id, e.nombre e_nombre
+        From doctor d
+        Left Join especialidad e On e.id = d.id_especialidad
+    </select>
+    
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.java.pojos.Doctor">
+        Insert Into doctor (nombre, ap_paterno, ap_materno, id_especialidad)
+        values (#{nombre},#{ap_paterno},#{ap_materno},#{especialidad.id})
+    </insert>
+    
+    <delete id = "delete" parameterType = "int">
+        Delete From doctor Where id = #{id};
+    </delete>
+    
+    <select id="read" parameterType="int" resultMap="doctorResultMap">
+        Select d.*,
+        e.id e_id, e.nombre e_nombre
+        From doctor d
+        Left Join especialidad e On e.id = d.id_especialidad
+        Where d.id = #{id}
+    </select>
+    
+    <update id="update" parameterType="com.java.pojos.Doctor">
+        Update doctor Set nombre = #{nombre}, ap_paterno = #{ap_paterno}, ap_materno = #{ap_materno}, id_especialidad =  #{especialidad.id}
+        Where id = #{id}
+    </update>
+
+</mapper>

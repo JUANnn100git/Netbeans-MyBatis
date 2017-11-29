@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Hora">
+    
+    <resultMap id="horaResultMap" type="com.java.pojos.Hora">
+        <id property="id" column="id" />
+        <result property="hora" column="hora_inicio"/>
+    </resultMap>
+    
+    <select id="list" resultMap="horaResultMap">
+        Select * From hora
+    </select>
+    
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.java.pojos.Hora">
+        Insert Into hora (hora_inicio)
+        values (#{hora})
+    </insert>
+    
+    <delete id = "delete" parameterType = "int">
+        Delete From hora Where id = #{id};
+    </delete>
+    
+    <select id="read" parameterType="int" resultMap="horaResultMap">
+        Select * From hora
+        Where id = #{id}
+    </select>
+    
+    <update id="update" parameterType="com.java.pojos.Hora">
+        Update hora Set hora_inicio = #{hora}
+        Where id = #{id}
+    </update>
+
+</mapper>

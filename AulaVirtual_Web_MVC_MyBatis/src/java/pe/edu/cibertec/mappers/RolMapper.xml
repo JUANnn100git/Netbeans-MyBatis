@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Rol">
+    
+    <resultMap id="rolResultMap" type="pe.edu.cibertec.pojos.Rol">
+        <id property="id" column="id" />
+        <result property="nombre" column="nombre"/>
+    </resultMap>
+    
+    <select id="list" resultMap="rolResultMap">
+        Select * From rol Where id != 999
+    </select>
+
+</mapper>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Especialidad">
+    
+    <resultMap id="especialidadResultMap" type="com.java.pojos.Especialidad">
+        <id property="id" column="id" />
+        <result property="nombre" column="nombre"/>
+    </resultMap>
+    
+    <select id="list" resultMap="especialidadResultMap">
+        Select * From especialidad
+    </select>
+    
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.java.pojos.Especialidad">
+        Insert Into especialidad (nombre)
+        values (#{nombre})
+    </insert>
+    
+    <delete id = "delete" parameterType = "int">
+        Delete From especialidad Where id = #{id};
+    </delete>
+    
+    <select id="read" parameterType="int" resultMap="especialidadResultMap">
+        Select * From especialidad
+        Where id = #{id}
+    </select>
+    
+    <update id="update" parameterType="com.java.pojos.Especialidad">
+        Update especialidad Set nombre = #{nombre}
+        Where id = #{id}
+    </update>
+
+</mapper>

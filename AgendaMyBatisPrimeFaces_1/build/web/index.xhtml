@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <p:dataTable value="${usuarioBean.usuarios}" var="aux" style="width: 1000px">
+            <p:column headerText="ID">
+                <h:outputText value="#{aux.id}"/>
+            </p:column> 
+            <p:column headerText="Nombre de Usuario">
+                <h:outputText value="#{aux.nombreUsuario}"/>
+            </p:column> 
+            <p:column headerText="Nombres">
+                <h:outputText value="#{aux.nombres}"/>
+            </p:column>    
+            <p:column headerText="Apellidos">
+                <h:outputText value="#{aux.apellidos}"/>
+            </p:column>   
+            <p:column headerText="Correo">
+                <h:outputText value="#{aux.correo}"/>
+            </p:column>  
+        </p:dataTable>
+    </h:body>
+</html>
+

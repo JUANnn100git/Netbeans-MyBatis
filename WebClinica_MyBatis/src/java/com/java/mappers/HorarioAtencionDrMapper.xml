@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="HorarioAtencionDr">
+    
+    <resultMap id="horarioAtencionDrResultMap" type="com.java.pojos.HorarioAtencionDr">
+        <id property="id" column="id" />
+        <result property="idDoctor" column="id_doctor"/>
+        <result property="dia" column="dia"/>
+        <result property="horaInicio" column="hora_inicio"/>
+        <result property="horaFin" column="hora_fin"/>
+        <result property="numeroConsultorio" column="numero_consultorio"/>
+    </resultMap>
+    
+    <resultMap id="doctorResultMap" type="com.java.pojos.Doctor">
+        <id property="id" column="id" />
+        <result property="nombre" column="nombre"/>
+        <result property="ap_paterno" column="ap_paterno"/>
+        <result property="ap_materno" column="ap_materno"/>
+        <association property='especialidad' resultMap='especialidadResult'/>
+    </resultMap>
+    
+    <select id="list" resultMap="horarioAtencionDrResultMap">
+        Select h.*, d.id d_id,d.nombre d_nombre, d.ap_paterno d_ap_paterno, d.ap_materno d_ap_materno, 
+        From horario_atencion_dr h
+        Left Join doctor d On d.id = h.id_doctor;
+    </select>
+    
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.java.pojos.HorarioAtencionDr">
+        Insert Into horario_atencion_dr (id_doctor, dia, hora_inicio, hora_fin, numero_consultorio)
+        values (#{idDoctor},#{dia},#{horaInicio},#{horaFin},#{numeroConsultorio})
+    </insert>
+    
+    <delete id = "delete" parameterType = "int">
+        Delete From horario_atencion_dr Where id = #{id};
+    </delete>
+    
+    <select id="read" parameterType="int" resultMap="horarioAtencionDrResultMap">
+        Select * From horario_atencion_dr
+        Where id = #{id}
+    </select>
+    
+    <update id="update" parameterType="com.java.pojos.HorarioAtencionDr">
+        Update horario_atencion_dr Set id_doctor = #{idDoctor}, dia = #{dia}, hora_inicio = #{horaInicio}, hora_fin = #{horaFin}, numero_consultorio = #{numeroConsultorio}
+        Where id = #{id}
+    </update>
+
+</mapper>
